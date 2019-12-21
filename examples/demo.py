@@ -77,9 +77,9 @@ async def logs(request):
 @app.route("/{size:int}")
 def padding(request):
     """
-    Dynamically generated data, maximum 50MB.
+    Dynamically generated data, maximum 5000MB.
     """
-    size = min(50000000, request.path_params["size"])
+    size = min(5000000000, request.path_params["size"])
     return PlainTextResponse("Z" * size)
 
 
