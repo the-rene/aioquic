@@ -13,6 +13,7 @@ from starlette.responses import PlainTextResponse, Response
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 from starlette.websockets import WebSocketDisconnect
+from time import sleep
 
 ROOT = os.path.dirname(__file__)
 LOGS_PATH = os.path.join(ROOT, "htdocs", "logs")
@@ -102,6 +103,16 @@ async def ws(websocket):
         pass
 
 
+@app.route("/delay/{delay_ms:int}/{size:int}")
+def delay(request):
+    """
+    Call any request, but add specified delay in ms
+    """
+    delay_ms = request.path_params["delay_ms"]
+    sleep(delay_ms/1000)
+
+    # todo: make possible to delay everything return app.route(request.path_params["requested_url"])
+    return padding(request)
 app.mount("/httpbin", WsgiToAsgi(httpbin.app))
 
 app.mount("/", StaticFiles(directory=os.path.join(ROOT, "htdocs"), html=True))
