@@ -10,3 +10,8 @@
 /docs/_build
 .idea
 venv/
+*.qlog
+examples/output
+*.log
+output
+secret_log
