@@ -18,7 +18,7 @@ class QuicConfiguration:
     A list of supported ALPN protocols.
     """
 
-    connection_id_length: int = 8
+    connection_id_length: int = 4
     """
     The length in bytes of local connection IDs.
     """
@@ -58,6 +58,7 @@ class QuicConfiguration:
     """
     The TLS session ticket which should be used for session resumption.
     """
+
 
     cadata: Optional[bytes] = None
     cafile: Optional[str] = None

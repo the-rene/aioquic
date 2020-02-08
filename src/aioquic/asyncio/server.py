@@ -1,5 +1,6 @@
 import asyncio
 import os
+import random
 from functools import partial
 from typing import Callable, Dict, Optional, Text, Union, cast
 
@@ -94,7 +95,7 @@ class QuicServer(asyncio.DatagramProtocol):
                     self._transport.sendto(
                         encode_quic_retry(
                             version=header.version,
-                            source_cid=os.urandom(8),
+                            source_cid=(self._configuration.connection_id_length - 1) * b'\x00' + os.urandom(1),
                             destination_cid=header.source_cid,
                             original_destination_cid=header.destination_cid,
                             retry_token=self._retry.create_token(
